@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 type CategoryPillProps = {
   categories: string[];
   selectedCategory: string;
-  onSelect: (categor: string) => void;
+  onSelect: (category: string) => void;
 };
 
 const TRANSLATE_AMOUNT = 300;

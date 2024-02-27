@@ -2,24 +2,14 @@ import appLogo from "../assets/Logo.png";
 import { Menu, Upload, Bell, User, Mic, Search, ArrowLeft } from "lucide-react";
 import { Button } from "../components/Button";
 import { useState } from "react";
+import { useSidebarContext } from "../contexts/SidebarContext";
 
 export default function PageHeader() {
   const [showFullWidthSearch, setFullWidthSearch] = useState(false);
 
   return (
     <div className="flex gap-10 lg:gap-20 justify-between pt-2 mb-6 mx-4">
-      <div
-        className={` gap-4 items-center flex-shrink-0  ${
-          showFullWidthSearch ? "hidden" : "flex"
-        }`}
-      >
-        <Button variant="ghost">
-          <Menu />
-        </Button>
-        <a href="/">
-          <img src={appLogo} alt="WebTube" className="h-6" />
-        </a>
-      </div>
+      <PageHeaderFirstSection hidden={showFullWidthSearch} />
       <form
         className={` gap-4 flex-grow justify-center  ${
           showFullWidthSearch ? "flex" : "hidden md:flex"
@@ -76,6 +66,30 @@ export default function PageHeader() {
           <User />
         </Button>
       </div>
+    </div>
+  );
+}
+
+type PageHeaderFirstSectionProps = {
+  hidden?: boolean;
+};
+
+export function PageHeaderFirstSection({
+  hidden = false,
+}: PageHeaderFirstSectionProps) {
+  const { toggle } = useSidebarContext();
+  return (
+    <div
+      className={` gap-4 items-center flex-shrink-0  ${
+        hidden ? "hidden" : "flex"
+      }`}
+    >
+      <Button onClick={toggle} variant="ghost" size="icon">
+        <Menu />
+      </Button>
+      <a href="/">
+        <img src={appLogo} alt="WebTube" className="h-6" />
+      </a>
     </div>
   );
 }
